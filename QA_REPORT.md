@@ -1,35 +1,25 @@
-# QA report
+# QA report - V2 Premium
 
 ## Completed in this environment
 
-- Source structure created for React + TypeScript + Tailwind + Framer Motion + Lucide + Lenis.
-- TypeScript/TSX syntax transpilation check passed using the installed TypeScript compiler and temporary local dependency declarations.
-- Every emitted JavaScript module passed `node --check` syntax validation.
-- Tailwind utility CSS was generated from the source class candidates; checked-in `src/styles/tailwind.generated.css` is ~60 KB before minification.
-- No `href="#"` placeholder links found.
-- No Lorem Ipsum found.
-- No Google Sheet ID appears in `src/`, `index.html`, or `public/`.
-- No remote `<img src="https://...">` hotlinks are present.
-- No `dangerouslySetInnerHTML` usage.
-- Zalo / Facebook / phone details are centralized in `src/config/site.ts`.
-- GitHub Pages uses `base: './'`.
-- `prefers-reduced-motion` is implemented in CSS and motion components.
-- Mobile sticky conversion bar respects `env(safe-area-inset-bottom)`.
-- Customer section avoids fabricated logos/testimonials and points to official Sapo resources instead.
+- Premium V2 interface upgrade completed for Hero, Header, Industry Solutions, Product Showcase, Features, Lead Form, Trust Bar, Section Heading and Final CTA.
+- TypeScript/TSX syntax transpilation check passed using TypeScript 5.8.3.
+- Offline strict TypeScript check passed using temporary local dependency declarations.
+- `package.json` parses successfully.
+- GitHub Pages remains configured with `base: './'`.
+- Deployment workflow is included at `.github/workflows/deploy.yml` and uses Node 22.
+- Framer Motion dependency compatibility overrides are included.
+- No fake customer brands, fake prices or fake testimonials were added.
+- Existing contact, Zalo, Facebook, Apps Script form service and analytics wiring were preserved.
+- `prefers-reduced-motion` remains supported.
 
-## Dependency/build limitation of this execution environment
+## Build limitation in this container
 
-The container could not resolve the public npm registry, so dependency installation timed out. Therefore a real `npm run build` with downloaded React/Vite packages could not be executed here.
+The npm registry is unreachable from this execution environment and `npm install` timed out, so a complete Vite production build could not be executed locally. GitHub Actions will install the pinned dependencies and run `npm run build` after upload.
 
-The repository workflow installs dependencies on GitHub Actions and runs `npm run build`. Direct dependency versions are pinned in `package.json` to reduce variance.
+## After upload
 
-## Must verify after first GitHub push
-
-1. GitHub Actions build completes and creates `dist/`.
-2. GitHub Pages loads all assets without 404s.
-3. Test the exact mobile viewports: 375×812, 390×844, 430×932, 768×1024.
-4. Test desktop: 1366×768, 1440×900, 1920×1080.
-5. Submit one real test lead and confirm the row reaches the intended Google Sheet.
-6. If Apps Script expects different field keys, update only the mapping in `src/services/leadService.ts`.
-7. Add the official `public/assets/trung-truc.webp` portrait.
-8. Update `public/robots.txt`, `public/sitemap.xml`, and `VITE_SITE_URL` with the final published URL.
+- Confirm the newest GitHub Actions run is green.
+- Open the GitHub Pages URL and hard-refresh once.
+- Test 375px, 390px, 430px mobile widths and 1366px+ desktop.
+- Submit one test lead to verify the Apps Script mapping still reaches the intended sheet.
