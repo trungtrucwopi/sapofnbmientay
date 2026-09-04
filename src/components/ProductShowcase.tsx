@@ -102,7 +102,7 @@ export function ProductShowcase() {
                         return (
                           <div key={String(label)} className="rounded-2xl border border-white/[0.055] bg-white/[0.018] p-3.5">
                             <div className="flex items-center justify-between">
-                              <span className="text-[8px] uppercase tracking-[0.14em] text-white/20">{label}</span>
+                              <span className="text-[8px] uppercase tracking-[0.14em] text-white/20">{String(label)}</span>
                               <MetricIcon className="h-3.5 w-3.5 text-[var(--sapo-blue-light)]" />
                             </div>
                             <div className="mt-2 text-xl font-black tracking-[-0.04em] text-white">{value as string}</div>

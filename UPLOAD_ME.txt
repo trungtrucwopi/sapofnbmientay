@@ -1,0 +1,8 @@
+SAPO V3 TypeScript build fix
+
+Upload the contents of this folder to the repository root and overwrite existing files.
+Files fixed:
+- src/components/Features.tsx
+- src/components/ProductShowcase.tsx
+
+Fixes TS2322 caused by tuple inference treating Lucide icon components as possible ReactNode values.

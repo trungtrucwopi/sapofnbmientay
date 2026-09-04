@@ -83,7 +83,7 @@ function UtilityVisual() {
         ['Khách hàng', Users],
       ].map(([label, Icon])=>{
         const CardIcon = Icon as typeof QrCode
-        return <div key={String(label)} className="rounded-[18px] border border-white/[0.045] bg-[#03070b] p-4"><CardIcon className="h-4 w-4 text-[var(--sapo-blue-light)]" /><div className="mt-5 text-[9px] font-semibold text-white/42">{label}</div></div>
+        return <div key={String(label)} className="rounded-[18px] border border-white/[0.045] bg-[#03070b] p-4"><CardIcon className="h-4 w-4 text-[var(--sapo-blue-light)]" /><div className="mt-5 text-[9px] font-semibold text-white/42">{String(label)}</div></div>
       })}
     </div>
   )
