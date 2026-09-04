@@ -3,11 +3,11 @@ import Lenis from 'lenis'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { TrustBar } from './components/TrustBar'
-import { PainPoints } from './components/PainPoints'
+import { ProductShowcase } from './components/ProductShowcase'
 import { IndustrySolutions } from './components/IndustrySolutions'
+import { PainPoints } from './components/PainPoints'
 import { Workflow } from './components/Workflow'
 import { Features } from './components/Features'
-import { ProductShowcase } from './components/ProductShowcase'
 import { Customers } from './components/Customers'
 import { Implementation } from './components/Implementation'
 import { Consultant } from './components/Consultant'
@@ -49,7 +49,7 @@ export default function App() {
     configureCanonical()
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const lenis = new Lenis({ duration: 0.8, smoothWheel: true })
+    const lenis = new Lenis({ duration: 0.85, smoothWheel: true })
     let frame = 0
     const raf = (time: number) => {
       lenis.raf(time)
@@ -68,14 +68,14 @@ export default function App() {
       <main>
         <Hero />
         <TrustBar />
-        <PainPoints />
+        <ProductShowcase />
         <IndustrySolutions />
+        <PainPoints />
         <Workflow />
         <Features />
-        <ProductShowcase />
-        <Customers />
-        <Implementation />
         <Consultant />
+        <Implementation />
+        <Customers />
         <LeadForm />
         <FAQ />
         <FinalCTA />

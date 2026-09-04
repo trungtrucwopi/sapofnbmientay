@@ -302,3 +302,132 @@ body::after {
   .hero-vignette::after { background: linear-gradient(to bottom, transparent 60%, rgba(5,7,10,.45)); }
   .industry-orbit::after { display: none; }
 }
+
+
+/* V3 - Command Center redesign */
+.hero-v3 {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(0,131,255,.11), transparent 27%),
+    linear-gradient(180deg, #03060a 0%, #05080d 52%, #04070b 100%);
+}
+
+.hero-v3-grid {
+  pointer-events: none;
+  opacity: .62;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at 50% 34%, #000 0%, rgba(0,0,0,.86) 35%, transparent 78%);
+}
+
+.hero-horizon {
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0,131,255,.19) 0%, rgba(0,131,255,.055) 34%, transparent 68%);
+  filter: blur(18px);
+}
+
+.hero-stroke {
+  color: rgba(255,255,255,.11);
+  -webkit-text-stroke: 1px rgba(255,255,255,.34);
+  text-shadow: 0 0 60px rgba(53,162,255,.06);
+}
+
+.command-deck {
+  transform-style: preserve-3d;
+}
+
+.command-deck::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 36px;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255,255,255,.11), transparent 22%, transparent 72%, rgba(53,162,255,.13));
+  opacity: .4;
+  filter: blur(.2px);
+}
+
+.signature-section {
+  background:
+    linear-gradient(180deg, #04070b, #05090e 48%, #04070b),
+    radial-gradient(circle at 80% 40%, rgba(0,131,255,.08), transparent 30%);
+}
+
+.timeline-console {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.industry-index {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.workflow-rail {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.03),
+    0 28px 85px rgba(0,0,0,.28);
+}
+
+.feature-v3 {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.025), rgba(255,255,255,.012)),
+    #05090e;
+}
+
+.feature-v3::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 0%, transparent 72%, rgba(53,162,255,.028) 100%);
+}
+
+.pain-row {
+  position: relative;
+}
+
+.pain-row::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, rgba(0,131,255,.035), transparent 55%);
+  transition: opacity .25s ease;
+}
+
+.pain-row:hover::after {
+  opacity: 1;
+}
+
+.final-stage {
+  box-shadow:
+    0 55px 150px rgba(0,0,0,.48),
+    inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+.final-stage-grid {
+  opacity: .38;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+}
+
+@media (min-width: 1024px) {
+  .command-deck {
+    transform: rotateX(1.6deg);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-stroke {
+    -webkit-text-stroke: .8px rgba(255,255,255,.28);
+  }
+
+  .hero-v3-grid {
+    background-size: 38px 38px;
+  }
+}

@@ -1,4 +1,4 @@
-import { ArrowRight, MessageCircle, PhoneCall, Sparkles } from 'lucide-react'
+import { ArrowRight, MessageCircle, PhoneCall } from 'lucide-react'
 import { site } from '../config/site'
 import { track } from '../lib/analytics'
 import { scrollToId } from '../lib/utils'
@@ -6,29 +6,47 @@ import { Reveal } from './ui/Reveal'
 
 export function FinalCTA() {
   return (
-    <section className="section-pad pt-8">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden px-4 pb-8 pt-16 sm:px-6 lg:px-8 lg:pt-24">
+      <div className="mx-auto max-w-[1380px]">
         <Reveal>
-          <div className="final-cta relative overflow-hidden rounded-[36px] border border-[rgba(0,131,255,.15)] bg-[#070b11] px-5 py-16 text-center shadow-[0_40px_120px_rgba(0,0,0,.42)] sm:px-8 lg:py-24">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,131,255,.23),transparent_44%),radial-gradient(circle_at_80%_10%,rgba(53,162,255,.07),transparent_28%)]" />
-            <div className="final-cta-grid absolute inset-0 opacity-45" />
-            <div className="absolute left-1/2 top-[48%] h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(0,131,255,.11)]" />
-            <div className="absolute left-1/2 top-[48%] h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.035]" />
+          <div className="final-stage relative overflow-hidden rounded-[34px] border border-white/[0.085] bg-[#03070b] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(0,131,255,.24),transparent_44%),radial-gradient(circle_at_82%_12%,rgba(83,188,255,.075),transparent_25%)]" />
+            <div className="final-stage-grid absolute inset-0" />
+            <div className="absolute left-1/2 top-[56%] h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.03]" />
+            <div className="absolute left-1/2 top-[56%] h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(53,162,255,.08)]" />
 
-            <div className="relative mx-auto max-w-4xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(0,131,255,.14)] bg-[rgba(0,131,255,.05)] px-3 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-[var(--sapo-blue-light)]"><Sparkles className="h-3.5 w-3.5" /> Ready to optimize</div>
-              <h2 className="mx-auto mt-6 max-w-4xl text-balance text-[clamp(2.5rem,6vw,5rem)] font-extrabold leading-[.98] tracking-[-0.06em] text-white">Đừng để quán đông hơn nhưng <span className="gradient-text">việc quản lý lại khó hơn.</span></h2>
-              <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/42 sm:text-lg">Chuẩn hóa luồng vận hành ngay từ đầu — từ order đến báo cáo — với giải pháp phù hợp cho mô hình của bạn.</p>
+            <div className="relative mx-auto max-w-5xl text-center">
+              <div className="text-[9px] font-black uppercase tracking-[0.25em] text-[var(--sapo-blue-light)]">Ready when your operation is</div>
+              <h2 className="mx-auto mt-6 text-balance text-[clamp(3rem,7vw,7rem)] font-black leading-[.88] tracking-[-0.075em] text-white">
+                Đừng để quán lớn lên
+                <span className="hero-stroke block">nhanh hơn hệ thống.</span>
+              </h2>
+              <p className="mx-auto mt-7 max-w-2xl text-sm leading-7 text-white/38 sm:text-base">Bắt đầu từ quy trình thật của quán. Sau đó mới chọn cách triển khai phù hợp.</p>
 
-              <div className="mx-auto mt-9 grid max-w-2xl gap-3 sm:grid-cols-2">
-                <button onClick={() => scrollToId('lead')} className="group inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-[var(--sapo-blue)] px-5 py-3.5 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(0,131,255,.3)] transition hover:-translate-y-0.5 hover:bg-[var(--sapo-blue-light)]">Nhận tư vấn miễn phí <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></button>
-                <a href={site.zalo} target="_blank" rel="noopener noreferrer" onClick={() => track('click_zalo', { location: 'final_cta' })} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.035] px-5 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-[rgba(0,131,255,.28)] hover:bg-white/[0.055]"><MessageCircle className="h-4 w-4" /> Chat Zalo với Trung Trực</a>
+              <div className="mx-auto mt-9 flex max-w-2xl flex-col justify-center gap-3 sm:flex-row">
+                <button
+                  onClick={() => scrollToId('lead')}
+                  className="group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-white px-6 text-sm font-black text-[#06101b] transition hover:-translate-y-1 hover:bg-[#e5f5ff]"
+                >
+                  Nhận tư vấn miễn phí <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                </button>
+                <a
+                  href={site.zalo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => track('click_zalo', { location: 'final_cta_v3' })}
+                  className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border border-white/[0.1] bg-white/[0.035] px-6 text-sm font-semibold text-white/72 transition hover:-translate-y-1 hover:border-[rgba(53,162,255,.25)] hover:text-white"
+                >
+                  <MessageCircle className="h-4 w-4 text-[var(--sapo-blue-light)]" /> Chat Zalo
+                </a>
               </div>
 
-              <div className="mt-7 flex flex-col items-center justify-center gap-2 text-xs text-white/30 sm:flex-row sm:gap-5">
+              <div className="mt-8 flex flex-col items-center justify-center gap-2 text-[9px] uppercase tracking-[0.14em] text-white/22 sm:flex-row sm:gap-5">
                 <span className="inline-flex items-center gap-2"><PhoneCall className="h-3.5 w-3.5 text-[var(--sapo-blue-light)]" /> {site.phoneDisplay}</span>
-                <span className="hidden h-1 w-1 rounded-full bg-white/18 sm:block" />
-                <span>Tư vấn 1:1 • Demo theo mô hình thực tế</span>
+                <span className="hidden h-1 w-1 rounded-full bg-white/15 sm:block" />
+                <span>Trung Trực • Sapo Miền Tây</span>
+                <span className="hidden h-1 w-1 rounded-full bg-white/15 sm:block" />
+                <span>Tư vấn 1:1</span>
               </div>
             </div>
           </div>

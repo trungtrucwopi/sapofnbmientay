@@ -1,192 +1,225 @@
-import { ArrowRight, BarChart3, Check, ChevronRight, CircleDollarSign, Clock3, QrCode, ReceiptText, Sparkles, UtensilsCrossed, Wifi } from 'lucide-react'
+import { ArrowRight, Check, ChefHat, CircleDollarSign, Clock3, MessageCircle, QrCode, ReceiptText, Sparkles, TrendingUp, UtensilsCrossed, Wifi } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { site } from '../config/site'
 import { track } from '../lib/analytics'
 import { scrollToId } from '../lib/utils'
 
-const tableStates = [
-  { name: 'B01', status: 'Đang phục vụ', active: true },
-  { name: 'B02', status: 'Trống', active: false },
-  { name: 'B03', status: 'Chờ món', active: true },
-  { name: 'B04', status: 'Trống', active: false },
-  { name: 'B05', status: 'Thanh toán', active: true },
-  { name: 'B06', status: 'Đặt trước', active: false },
+const orders = [
+  { id: '#A128', table: 'B03', items: '3 món', state: 'Bếp nhận', tone: 'blue' },
+  { id: '#A129', table: 'B11', items: '2 món', state: 'Đang làm', tone: 'amber' },
+  { id: '#A130', table: 'B07', items: '5 món', state: 'Sẵn sàng', tone: 'green' },
 ]
 
-function LiveCockpit() {
+const tables = ['B01','B02','B03','B04','B05','B06','B07','B08','B09','B10','B11','B12']
+
+function CommandDeck() {
   const reduce = useReducedMotion()
   return (
     <motion.div
-      initial={reduce ? undefined : { opacity: 0, scale: 0.94, y: 24, rotateX: 4 }}
-      animate={reduce ? undefined : { opacity: 1, scale: 1, y: 0, rotateX: 0 }}
-      transition={{ duration: 0.9, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-      className="relative mx-auto w-full max-w-[690px] [perspective:1400px]"
+      initial={reduce ? undefined : { opacity: 0, y: 46, scale: 0.965, rotateX: 7 }}
+      animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+      transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="command-deck relative mx-auto mt-12 w-full max-w-[1220px] [perspective:1500px] sm:mt-14 lg:mt-16"
     >
-      <div className="absolute left-[16%] top-[12%] h-72 w-72 rounded-full bg-[var(--sapo-blue)]/16 blur-[95px]" />
-      <div className="absolute bottom-[4%] right-[4%] h-52 w-52 rounded-full bg-cyan-300/8 blur-[80px]" />
+      <div className="absolute left-1/2 top-[46%] h-[360px] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--sapo-blue)]/[0.13] blur-[105px]" />
+      <div className="absolute inset-x-[12%] bottom-[-34px] h-20 rounded-[50%] bg-black/80 blur-2xl" />
 
-      <div className="hero-cockpit relative overflow-hidden rounded-[30px] border border-white/[0.1] bg-[#090d14]/95 p-2.5 shadow-[0_45px_140px_rgba(0,0,0,.62)] backdrop-blur-2xl sm:p-3">
-        <div className="relative overflow-hidden rounded-[24px] border border-white/[0.07] bg-[#060a10]">
-          <div className="flex h-12 items-center justify-between border-b border-white/[0.06] px-4 sm:px-5">
+      <div className="relative overflow-hidden rounded-[26px] border border-white/[0.11] bg-[#060b12]/96 p-2.5 shadow-[0_60px_180px_rgba(0,0,0,.68)] sm:rounded-[34px] sm:p-3.5">
+        <div className="overflow-hidden rounded-[21px] border border-white/[0.06] bg-[#04080d] sm:rounded-[28px]">
+          <div className="flex h-12 items-center justify-between border-b border-white/[0.055] px-4 sm:h-14 sm:px-5">
             <div className="flex items-center gap-3">
-              <div className="grid h-7 w-7 place-items-center rounded-lg bg-[var(--sapo-blue)] text-[10px] font-black text-white">S</div>
-              <div>
-                <div className="text-[11px] font-semibold text-white">Sapo FnB Control</div>
-                <div className="text-[9px] text-white/30">Chi nhánh trung tâm • Live</div>
+              <div className="flex gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-white/12" />
+                <span className="h-2 w-2 rounded-full bg-white/12" />
+                <span className="h-2 w-2 rounded-full bg-[var(--sapo-blue-light)] shadow-[0_0_12px_rgba(53,162,255,.75)]" />
               </div>
+              <div className="hidden h-4 w-px bg-white/[0.07] sm:block" />
+              <span className="hidden text-[9px] font-bold uppercase tracking-[0.2em] text-white/28 sm:inline">Sapo FnB / Operations Command</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full border border-emerald-300/10 bg-emerald-300/[0.05] px-2.5 py-1 text-[9px] font-bold text-emerald-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,.7)]" /> ONLINE
+            <div className="flex items-center gap-2 text-[9px]">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/10 bg-emerald-300/[0.05] px-2.5 py-1 font-bold text-emerald-300">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" /> LIVE
+              </span>
+              <span className="hidden rounded-full border border-white/[0.055] px-2.5 py-1 text-white/24 sm:inline">AUTO SYNC</span>
             </div>
           </div>
 
-          <div className="grid min-h-[430px] md:grid-cols-[74px_1fr]">
-            <div className="hidden border-r border-white/[0.05] bg-white/[0.012] px-2 py-4 md:block">
-              <div className="space-y-2">
-                {[BarChart3, UtensilsCrossed, ReceiptText, QrCode].map((Icon, index) => (
-                  <div key={index} className={`grid h-11 place-items-center rounded-xl border ${index === 0 ? 'border-[rgba(0,131,255,.22)] bg-[rgba(0,131,255,.09)] text-[var(--sapo-blue-light)]' : 'border-transparent text-white/24'}`}>
-                    <Icon className="h-4 w-4" />
-                  </div>
-                ))}
+          <div className="grid min-h-[480px] lg:grid-cols-[.72fr_1.48fr_.8fr]">
+            <aside className="border-b border-white/[0.055] p-4 sm:p-5 lg:border-b-0 lg:border-r">
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/25">Live order feed</span>
+                <Wifi className="h-3.5 w-3.5 text-[var(--sapo-blue-light)]" />
               </div>
-            </div>
-
-            <div className="p-3.5 sm:p-5">
-              <div className="grid gap-3 sm:grid-cols-3">
-                {[
-                  { label: 'Doanh thu hôm nay', value: '18,64M', icon: CircleDollarSign, tag: '+12,8%' },
-                  { label: 'Đơn đã nhận', value: '126', icon: ReceiptText, tag: '8 đang xử lý' },
-                  { label: 'Thời gian TB', value: '07:42', icon: Clock3, tag: 'ổn định' },
-                ].map((card) => (
-                  <div key={card.label} className="rounded-2xl border border-white/[0.06] bg-white/[0.026] p-3.5">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="text-[9px] uppercase tracking-[0.12em] text-white/28">{card.label}</div>
-                      <card.icon className="h-3.5 w-3.5 text-[var(--sapo-blue-light)]" />
+              <div className="mt-5 space-y-3">
+                {orders.map((order, index) => (
+                  <motion.div
+                    key={order.id}
+                    initial={reduce ? undefined : { opacity: 0, x: -14 }}
+                    animate={reduce ? undefined : { opacity: 1, x: 0 }}
+                    transition={{ duration: 0.45, delay: 0.65 + index * 0.08 }}
+                    className="rounded-2xl border border-white/[0.055] bg-white/[0.018] p-3.5"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold text-white/72">{order.id} • {order.table}</span>
+                      <span className={`h-1.5 w-1.5 rounded-full ${order.tone === 'green' ? 'bg-emerald-300' : order.tone === 'amber' ? 'bg-amber-300' : 'bg-[var(--sapo-blue-light)]'}`} />
                     </div>
-                    <div className="mt-2 text-xl font-bold tracking-[-0.03em] text-white">{card.value}</div>
-                    <div className="mt-1 text-[9px] text-emerald-300/70">{card.tag}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-3 grid gap-3 lg:grid-cols-[1.12fr_.88fr]">
-                <div className="rounded-2xl border border-white/[0.06] bg-white/[0.022] p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-[10px] font-semibold text-white/70">Nhịp doanh thu</div>
-                      <div className="mt-0.5 text-[9px] text-white/26">Theo mốc trong ngày</div>
-                    </div>
-                    <div className="flex items-center gap-1 text-[9px] text-white/30"><Wifi className="h-3 w-3" /> realtime</div>
-                  </div>
-                  <div className="relative mt-6 flex h-28 items-end gap-1.5 overflow-hidden rounded-xl border border-white/[0.04] bg-[#05090f] px-3 pb-3 pt-4">
-                    <div className="absolute inset-x-3 top-1/3 border-t border-dashed border-white/[0.05]" />
-                    <div className="absolute inset-x-3 top-2/3 border-t border-dashed border-white/[0.05]" />
-                    {[24, 36, 31, 49, 44, 64, 58, 78, 72, 92, 82, 97].map((height, index) => (
-                      <motion.span
-                        key={index}
-                        initial={reduce ? undefined : { height: '8%' }}
-                        animate={reduce ? undefined : { height: `${height}%` }}
-                        transition={{ duration: 0.55, delay: 0.5 + index * 0.035 }}
-                        style={reduce ? { height: `${height}%` } : undefined}
-                        className="relative z-10 flex-1 rounded-t-[4px] bg-gradient-to-t from-[rgba(0,131,255,.16)] via-[rgba(0,131,255,.55)] to-[#6ec5ff]"
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-white/[0.06] bg-white/[0.022] p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="text-[10px] font-semibold text-white/70">Trạng thái bàn</div>
-                    <span className="text-[9px] text-white/26">06 bàn</span>
-                  </div>
-                  <div className="mt-4 grid grid-cols-2 gap-2">
-                    {tableStates.map((table) => (
-                      <div key={table.name} className={`rounded-xl border p-2.5 ${table.active ? 'border-[rgba(0,131,255,.16)] bg-[rgba(0,131,255,.06)]' : 'border-white/[0.05] bg-white/[0.018]'}`}>
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-bold text-white/78">{table.name}</span>
-                          <span className={`h-1.5 w-1.5 rounded-full ${table.active ? 'bg-[var(--sapo-blue-light)] shadow-[0_0_8px_rgba(53,162,255,.75)]' : 'bg-white/15'}`} />
-                        </div>
-                        <div className="mt-1 text-[8px] text-white/28">{table.status}</div>
+                    <div className="mt-3 flex items-end justify-between gap-3">
+                      <div>
+                        <div className="text-[9px] text-white/26">{order.items}</div>
+                        <div className="mt-1 text-[9px] font-semibold text-white/50">{order.state}</div>
                       </div>
-                    ))}
+                      <ChefHat className="h-4 w-4 text-white/18" />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="mt-5 rounded-2xl border border-[rgba(0,131,255,.12)] bg-[rgba(0,131,255,.045)] p-4">
+                <div className="flex items-center gap-2 text-[10px] font-semibold text-white/62"><QrCode className="h-4 w-4 text-[var(--sapo-blue-light)]" /> QR Order</div>
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="text-[9px] text-white/26">Bàn B05</span>
+                  <span className="text-xs font-bold text-white">486.000đ</span>
+                </div>
+              </div>
+            </aside>
+
+            <div className="border-b border-white/[0.055] p-4 sm:p-5 lg:border-b-0 lg:border-r lg:p-6">
+              <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+                {[
+                  { label: 'Doanh thu', value: '18,64M', icon: CircleDollarSign, detail: '+12,8%' },
+                  { label: 'Đơn hàng', value: '126', icon: ReceiptText, detail: '8 xử lý' },
+                  { label: 'Phục vụ TB', value: '07:42', icon: Clock3, detail: 'ổn định' },
+                ].map((metric) => (
+                  <div key={metric.label} className="rounded-2xl border border-white/[0.055] bg-white/[0.02] p-3 sm:p-4">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="text-[8px] uppercase tracking-[0.12em] text-white/23 sm:text-[9px]">{metric.label}</span>
+                      <metric.icon className="h-3.5 w-3.5 text-[var(--sapo-blue-light)]" />
+                    </div>
+                    <div className="mt-2 text-lg font-black tracking-[-0.05em] text-white sm:text-2xl">{metric.value}</div>
+                    <div className="mt-1 text-[8px] text-emerald-300/60 sm:text-[9px]">{metric.detail}</div>
                   </div>
+                ))}
+              </div>
+
+              <div className="mt-3 rounded-[22px] border border-white/[0.055] bg-white/[0.014] p-4 sm:p-5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-[10px] font-semibold text-white/66">Nhịp doanh thu</div>
+                    <div className="mt-1 text-[8px] uppercase tracking-[0.16em] text-white/20">Realtime / Today</div>
+                  </div>
+                  <div className="flex items-center gap-1 text-[9px] text-emerald-300/65"><TrendingUp className="h-3.5 w-3.5" /> +12,8%</div>
+                </div>
+                <div className="relative mt-5 flex h-40 items-end gap-2 overflow-hidden rounded-2xl border border-white/[0.035] bg-[#03070b] px-3 pb-3 pt-4 sm:h-48 sm:px-4 sm:pb-4">
+                  {[25, 50, 75].map((line) => <span key={line} className="absolute inset-x-3 border-t border-dashed border-white/[0.04]" style={{ bottom: `${line}%` }} />)}
+                  {[20,28,25,38,34,49,44,58,54,72,66,82,76,94,86,100].map((height, index) => (
+                    <motion.span
+                      key={index}
+                      initial={reduce ? undefined : { height: '8%' }}
+                      animate={reduce ? undefined : { height: `${height}%` }}
+                      transition={{ duration: 0.5, delay: 0.7 + index * 0.025 }}
+                      style={reduce ? { height: `${height}%` } : undefined}
+                      className="relative z-10 flex-1 rounded-t-[4px] bg-gradient-to-t from-[rgba(0,131,255,.12)] via-[rgba(0,131,255,.5)] to-[#7fd0ff]"
+                    />
+                  ))}
                 </div>
               </div>
             </div>
+
+            <aside className="p-4 sm:p-5">
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/25">Floor map</span>
+                <UtensilsCrossed className="h-3.5 w-3.5 text-white/24" />
+              </div>
+              <div className="mt-5 grid grid-cols-3 gap-2">
+                {tables.map((table, index) => (
+                  <div key={table} className={`grid aspect-square place-items-center rounded-xl border text-[9px] font-bold ${[2,4,6,10].includes(index) ? 'border-[rgba(0,131,255,.18)] bg-[rgba(0,131,255,.075)] text-[var(--sapo-blue-light)]' : [1,8].includes(index) ? 'border-amber-300/10 bg-amber-300/[0.035] text-amber-200/65' : 'border-white/[0.045] bg-white/[0.018] text-white/28'}`}>
+                    {table}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-5 rounded-2xl border border-white/[0.055] bg-white/[0.018] p-4">
+                <div className="text-[9px] uppercase tracking-[0.16em] text-white/22">System health</div>
+                <div className="mt-4 space-y-3">
+                  {[
+                    ['Order sync', '99.9%'],
+                    ['Bếp / Bar', 'Live'],
+                    ['Thanh toán', 'Ready'],
+                  ].map(([label, value]) => (
+                    <div key={label} className="flex items-center justify-between text-[9px]">
+                      <span className="text-white/35">{label}</span>
+                      <span className="inline-flex items-center gap-1.5 font-semibold text-emerald-300/70"><Check className="h-3 w-3" /> {value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </aside>
           </div>
         </div>
       </div>
 
-      <motion.div
-        animate={reduce ? undefined : { y: [0, -7, 0] }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -left-4 top-[34%] hidden w-44 rounded-2xl border border-white/10 bg-[#0a0f16]/94 p-3 shadow-2xl backdrop-blur-xl lg:block"
-      >
-        <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.12em] text-white/28"><span>Bếp / Bar</span><span className="text-amber-300">03 chờ</span></div>
-        <div className="mt-3 rounded-xl bg-white/[0.035] p-2.5">
-          <div className="text-[10px] font-semibold text-white/78">#A128 • B03</div>
-          <div className="mt-1 text-[9px] text-white/32">3 món • vừa nhận</div>
-        </div>
-      </motion.div>
-
-      <motion.div
-        animate={reduce ? undefined : { y: [0, 6, 0] }}
-        transition={{ duration: 5.4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -bottom-5 right-1 hidden w-52 rounded-[22px] border border-white/10 bg-[#0a0f16]/96 p-4 shadow-2xl backdrop-blur-xl sm:block"
-      >
-        <div className="flex items-center gap-2 text-[10px] font-semibold text-white/70"><QrCode className="h-4 w-4 text-[var(--sapo-blue-light)]" /> QR Order • bàn B05</div>
-        <div className="mt-3 flex items-center justify-between rounded-xl border border-white/[0.05] bg-white/[0.025] px-3 py-2.5">
-          <div><div className="text-[9px] text-white/28">Giá trị đơn</div><div className="mt-0.5 text-sm font-bold text-white">486.000đ</div></div>
-          <Check className="h-4 w-4 text-emerald-300" />
-        </div>
-      </motion.div>
+      <div className="pointer-events-none absolute left-[-28px] top-[28%] hidden rounded-2xl border border-white/[0.08] bg-[#07101a]/90 px-3 py-2 text-[9px] font-bold uppercase tracking-[0.16em] text-white/40 shadow-xl backdrop-blur-xl xl:block">
+        Order → Bếp
+      </div>
+      <div className="pointer-events-none absolute right-[-34px] top-[56%] hidden rounded-2xl border border-white/[0.08] bg-[#07101a]/90 px-3 py-2 text-[9px] font-bold uppercase tracking-[0.16em] text-white/40 shadow-xl backdrop-blur-xl xl:block">
+        Thu ngân → Báo cáo
+      </div>
     </motion.div>
   )
 }
 
 export function Hero() {
   const reduce = useReducedMotion()
-  return (
-    <section id="top" className="hero-grid hero-vignette relative flex min-h-[100svh] items-center overflow-hidden pb-20 pt-28 sm:pt-32">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_24%,rgba(0,131,255,.15),transparent_30%),radial-gradient(circle_at_15%_10%,rgba(255,255,255,.04),transparent_22%)]" />
-      <div className="hero-beam absolute left-[58%] top-[4%] hidden h-[90%] w-px rotate-[18deg] lg:block" />
-      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#05070a] to-transparent" />
 
-      <div className="relative mx-auto grid w-full max-w-[1440px] items-center gap-14 px-4 sm:px-6 lg:grid-cols-[.82fr_1.18fr] lg:px-8 xl:gap-20">
-        <div className="max-w-2xl">
+  return (
+    <section id="top" className="hero-v3 relative min-h-[106svh] overflow-hidden pb-20 pt-28 sm:pt-32">
+      <div className="hero-v3-grid absolute inset-0" />
+      <div className="hero-horizon absolute left-1/2 top-[34%] h-[520px] w-[1100px] -translate-x-1/2 -translate-y-1/2 rounded-[50%]" />
+      <div className="absolute left-[7%] top-[22%] hidden text-[8px] font-bold uppercase tracking-[0.28em] text-white/16 lg:block [writing-mode:vertical-rl]">Sapo FnB / Mekong Region / 2026</div>
+      <div className="absolute right-[7%] top-[22%] hidden text-[8px] font-bold uppercase tracking-[0.28em] text-white/16 lg:block [writing-mode:vertical-rl]">Operate / Control / Grow</div>
+
+      <div className="relative mx-auto max-w-[1480px] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl text-center">
           <motion.div
             initial={reduce ? undefined : { opacity: 0, y: 14 }}
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 rounded-full border border-[rgba(0,131,255,.22)] bg-[rgba(0,131,255,.07)] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--sapo-blue-light)] shadow-[inset_0_1px_0_rgba(255,255,255,.04)]"
+            transition={{ duration: 0.55 }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/[0.075] bg-white/[0.025] px-3.5 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white/46 backdrop-blur-xl"
           >
-            <Sparkles className="h-3.5 w-3.5" />
-            Sapo FnB • Operations intelligence
+            <Sparkles className="h-3.5 w-3.5 text-[var(--sapo-blue-light)]" />
+            SAPO FnB • Hệ thống vận hành cho quán
           </motion.div>
 
-          <motion.div initial={reduce ? undefined : { opacity: 0, y: 26 }} animate={reduce ? undefined : { opacity: 1, y: 0 }} transition={{ duration: 0.78, delay: 0.08 }}>
-            <h1 className="mt-7 text-balance text-[clamp(3rem,6.2vw,5.5rem)] font-extrabold leading-[.96] tracking-[-0.065em] text-white">
-              Vận hành quán<br />
-              <span className="gradient-text">như một hệ thống.</span>
-            </h1>
-            <div className="mt-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.15em] text-white/35">
-              <span>Tăng tốc phục vụ</span><span className="h-1 w-1 rounded-full bg-white/20" /><span>Giảm rối vận hành</span>
-            </div>
-          </motion.div>
+          <motion.h1
+            initial={reduce ? undefined : { opacity: 0, y: 22 }}
+            animate={reduce ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto mt-7 max-w-6xl text-balance text-[clamp(3.05rem,7.9vw,7.6rem)] font-black leading-[.86] tracking-[-0.075em] text-white"
+          >
+            Quán vận hành như
+            <span className="hero-stroke block">một hệ thống.</span>
+          </motion.h1>
 
-          <motion.p initial={reduce ? undefined : { opacity: 0, y: 18 }} animate={reduce ? undefined : { opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.16 }} className="mt-6 max-w-xl text-base leading-7 text-white/55 sm:text-lg sm:leading-8">
-            Một luồng xuyên suốt từ order, bếp/bar, thanh toán đến kho và báo cáo — để chủ quán nhìn thấy toàn bộ vận hành trong một màn hình.
+          <motion.p
+            initial={reduce ? undefined : { opacity: 0, y: 18 }}
+            animate={reduce ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.18 }}
+            className="mx-auto mt-7 max-w-3xl text-balance text-sm leading-7 text-white/42 sm:text-base lg:text-lg"
+          >
+            Order, bếp/bar, thu ngân, kho và báo cáo chạy trên cùng một luồng. Trung Trực tư vấn và triển khai Sapo FnB theo mô hình thực tế tại Miền Tây.
           </motion.p>
 
-          <motion.div initial={reduce ? undefined : { opacity: 0 }} animate={reduce ? undefined : { opacity: 1 }} transition={{ duration: 0.7, delay: 0.23 }} className="mt-5 flex items-center gap-3 text-sm text-white/58">
-            <span className="grid h-8 w-8 place-items-center rounded-full border border-white/[0.08] bg-white/[0.035] text-[10px] font-bold text-white">TT</span>
-            <span>Tư vấn & triển khai cùng <strong className="font-semibold text-white">Trung Trực — Sapo Miền Tây</strong></span>
-          </motion.div>
-
-          <motion.div initial={reduce ? undefined : { opacity: 0, y: 18 }} animate={reduce ? undefined : { opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }} className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <motion.div
+            initial={reduce ? undefined : { opacity: 0, y: 16 }}
+            animate={reduce ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.26 }}
+            className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"
+          >
             <button
-              onClick={() => { track('click_hero_cta'); scrollToId('lead') }}
-              className="group hero-primary-button inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-[var(--sapo-blue)] px-5 py-3.5 text-sm font-semibold text-white shadow-[0_18px_55px_rgba(0,131,255,.3)] transition hover:-translate-y-0.5 hover:bg-[var(--sapo-blue-light)]"
+              onClick={() => {
+                track('click_hero_cta')
+                scrollToId('lead')
+              }}
+              className="group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-white px-6 text-sm font-black text-[#06101b] shadow-[0_20px_70px_rgba(255,255,255,.08)] transition hover:-translate-y-1 hover:bg-[#e5f5ff]"
             >
               Nhận tư vấn miễn phí <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </button>
@@ -194,32 +227,26 @@ export function Hero() {
               href={site.zalo}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => track('click_zalo', { location: 'hero' })}
-              className="group inline-flex min-h-13 items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.035] px-5 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-[rgba(0,131,255,.32)] hover:bg-white/[0.06]"
+              onClick={() => track('click_zalo', { location: 'hero_v3' })}
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border border-white/[0.1] bg-white/[0.035] px-6 text-sm font-semibold text-white/74 backdrop-blur-xl transition hover:-translate-y-1 hover:border-[rgba(53,162,255,.28)] hover:bg-white/[0.055] hover:text-white"
             >
-              Chat Zalo ngay <ChevronRight className="h-4 w-4 text-white/35 transition group-hover:translate-x-0.5 group-hover:text-white" />
+              <MessageCircle className="h-4 w-4 text-[var(--sapo-blue-light)]" /> Chat Zalo
             </a>
           </motion.div>
 
-          <motion.div initial={reduce ? undefined : { opacity: 0 }} animate={reduce ? undefined : { opacity: 1 }} transition={{ delay: 0.42 }} className="mt-6 grid max-w-xl grid-cols-3 gap-2">
-            {[
-              ['01', 'Tư vấn 1:1'],
-              ['02', 'Demo theo mô hình'],
-              ['03', 'Hỗ trợ triển khai'],
-            ].map(([index, label]) => (
-              <div key={label} className="border-l border-white/[0.08] pl-3">
-                <div className="text-[9px] font-bold tracking-[0.16em] text-[var(--sapo-blue-light)]">{index}</div>
-                <div className="mt-1 text-[10px] leading-4 text-white/38 sm:text-xs">{label}</div>
-              </div>
-            ))}
+          <motion.div
+            initial={reduce ? undefined : { opacity: 0 }}
+            animate={reduce ? undefined : { opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.38 }}
+            className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[9px] uppercase tracking-[0.14em] text-white/24 sm:text-[10px]"
+          >
+            <span>Tư vấn 1:1</span><span className="h-1 w-1 rounded-full bg-[var(--sapo-blue-light)]" />
+            <span>Demo theo mô hình</span><span className="h-1 w-1 rounded-full bg-[var(--sapo-blue-light)]" />
+            <span>Hỗ trợ triển khai</span>
           </motion.div>
         </div>
 
-        <LiveCockpit />
-      </div>
-
-      <div className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 items-center gap-2 text-[9px] uppercase tracking-[0.18em] text-white/22 lg:flex">
-        Scroll to explore <span className="h-px w-10 bg-gradient-to-r from-white/20 to-transparent" />
+        <CommandDeck />
       </div>
     </section>
   )
