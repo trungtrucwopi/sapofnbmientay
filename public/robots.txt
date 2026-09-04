@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Update after publishing with the real GitHub Pages/custom domain URL.
+Sitemap: https://username.github.io/repository-name/sitemap.xml

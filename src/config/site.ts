@@ -1,0 +1,20 @@
+export const site = {
+  consultant: 'Trung Trực',
+  role: 'Chuyên viên tư vấn giải pháp Sapo',
+  region: 'Sapo Miền Tây',
+  phoneDisplay: '0386 427 289',
+  phone: '0386427289',
+  call: 'tel:0386427289',
+  zalo: 'https://zalo.me/0386427289',
+  facebook: 'https://www.facebook.com/trungtrucsapo/',
+  officialSources: {
+    restaurant: 'https://www.sapo.vn/phan-mem-quan-ly-nha-hang.html',
+    cafe: 'https://www.sapo.vn/phan-mem-quan-ly-quan-cafe.html',
+    milkTea: 'https://www.sapo.vn/phan-mem-quan-ly-quan-tra-sua.html',
+    bakery: 'https://www.sapo.vn/phan-mem-quan-ly-tiem-banh.html',
+    billiards: 'https://www.sapo.vn/phan-mem-quan-ly-quan-bida.html',
+    karaoke: 'https://www.sapo.vn/phan-mem-quan-ly-quan-karaoke.html',
+    bar: 'https://www.sapo.vn/phan-mem-quan-ly-quan-bar.html',
+    help: 'https://help.sapo.vn/quan-ly-nha-hang-dich-vu',
+  },
+} as const
